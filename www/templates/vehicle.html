@@ -1,0 +1,114 @@
+<ion-view view-title="Result" align-title="center">
+    <ion-content class="padding">
+        <div style="text-align: center" id="spinner">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <ion-spinner icon="ios"></ion-spinner>
+        </div>
+
+        <div id="info" style="display: none">
+            <h3 style="text-align:center;">Vehicle Document</h3>
+            <div class="list">
+                <div class="item item-divider">
+                    Document Information
+                </div>
+                <div class="item">
+                    Document Num. 
+                    <span class="item-note">{{data.ide_yea}} {{data.ide_ser}} {{data.ide_nbr}} - {{data.key_itm_rnk}}</span>
+                </div>
+                <div class="item">
+                    Document Date
+                <span class="item-note">{{data.ide_dat.split(" ")[0]}}</span>
+                </div>
+                <div class="item">
+                    Copy
+                    <span class="item-note">{{data.prn_nbr}}</span>
+                </div>
+                <div class="item">
+                    Officer Singed
+                    <span class="item-note">{{data.officer}}</span>
+                </div>
+            </div>
+
+            <div class="list">
+                <div class="item item-divider">
+                    Vehicle Information
+                </div>
+                <div class="item">
+                    Desc.
+                    <span class="item-note">{{data.itm_dsc}}</span>
+                </div>
+                <div class="item">
+                    Chassis No.
+                    <span class="item-note">{{data.chasis_nber}}</span>
+                </div>
+                <div class="item">
+                    Engine No.
+                    <span class="item-note">{{data.engine_nber}}</span>
+                </div>
+                <div class="item">
+                    Vignette No.
+                    <span class="item-note">{{data.vignette_nber}}</span>
+                </div>
+            </div>
+
+            <div class="list">
+                <div class="item item-divider">
+                    Declaration Details
+                </div>
+                <div class="item">
+                    Office Code
+                    <span class="item-note">{{data.ide_cod}}</span>
+                </div>
+                <div class="item">
+                    Office Name
+                    <span class="item-note">{{data.ide_nam}}</span>
+                </div>
+                <div class="item">
+                    Reg. Number
+                    <span class="item-note">{{data.dec_ser + " " + data.dec_nbr}}</span>
+                </div>
+                <div class="item">
+                    Reg. Date
+                    <span class="item-note">{{data.dec_dat.split(" ")[0]}}</span>
+                </div>
+                <div class="item">
+                    Declarant Code
+                    <span class="item-note">
+                    {{data.tra_dec_cod}}
+                    </span>
+                </div>
+                <div class="item">
+                    Declarant Name
+                    <span class="item-note">{{data.tra_dec_nam}}</span>
+                </div>
+                <div class="item">
+                    Company Code
+                    <span class="item-note">{{data.tra_cmp_cod}}</span>
+              </div>
+              <div class="item">
+                Company Name
+                <span class="item-note">{{data.tra_cmp_nam}}</span>
+              </div>
+            </div>
+
+      </div>
+    </ion-content>
+</ion-view>
+
+<style type="text/css">
+    .item-note{
+        color: black !important;
+        font-weight: bold !important;
+    }
+    .item-divider{
+        background-color: #d5d5d5 !important;
+    }
+</style>

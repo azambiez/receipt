@@ -1,0 +1,138 @@
+<ion-view view-title="Result" align-title="center">
+    <ion-content class="padding">
+      <div style="text-align: center" id="spinner">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <ion-spinner icon="ios"></ion-spinner>
+      </div>
+
+      <div id="info" style="display: none">
+        <div class="list">
+          <div class="item item-divider">
+            Declaration Informations
+          </div>
+          <a class="item" href="">
+            Office Code
+            <span class="item-note">{{data.cuo_cod}}</span>
+          </a>
+          <a class="item" href="">
+            Office Name
+            <span class="item-note">{{data.cuo_nam}}</span>
+          </a>
+          <a class="item" href="">
+            Reg. Number
+            <span class="item-note">{{data.sad_ser + "-" + data.sad_nbr + "/" + data.sad_status + "-" + data.sad_status_nbr}}</span>
+          </a>
+          <a class="item" href="">
+            Reg. Date
+            <span class="item-note">{{data.sad_dat.split(" ")[0]}}</span>
+          </a>
+        </div>
+
+        <div class="list">
+          <div class="item item-divider">
+            Consignee Informations
+          </div>
+          <a class="item" href="">
+            Name
+            <span class="item-note">
+              {{data.con_nam.split("\n")[0]}}
+            </span>
+          </a>
+          <a class="item" href="">
+            VAT
+            <span class="item-note">
+              {{data.con_cod}}
+            </span>
+          </a>
+          <a class="item" href="">
+            Address 1
+            <span class="item-note">
+              {{data.con_adr.split("\n")[0]}}
+            </span>
+          </a>
+          <a class="item" href="">
+            Address 2
+            <span class="item-note">
+              {{data.con_adr.split("\n")[1]}}
+            </span>
+          </a>
+          <a class="item" href="">
+            Address 3
+            <span class="item-note">
+              {{data.con_adr.split("\n")[2]}}
+            </span>
+          </a>
+          <a class="item" href="">
+            Address 4
+            <span class="item-note">
+              {{data.con_adr.split("\n")[3]}}
+            </span>
+          </a>
+        </div>
+
+        <div class="list">
+          <div class="item item-divider">
+            Items Information
+          </div>
+          <a class="item" href="" ng-repeat="item in data.items track by $index">
+            {{$index+1}}. {{item.itm_dsc}}
+            <span class="item-note">{{item.itm_wgs}}{{item.itm_wgs_unt}}</span>
+          </a>
+        </div>
+
+        <div class="list">
+          <div class="item item-divider">
+            Transportation Information
+          </div>
+          <a class="item" href="">
+            Total Type
+            <span class="item-note">{{data.gds_tot_dsc}}</span>
+          </a>
+          <a class="item" href="">
+            Departure
+            <span class="item-note">{{data.trd_loc_from}}</span>
+          </a>
+          <a class="item" href="">
+            Destination
+            <span class="item-note">{{data.trd_loc_to}}</span>
+          </a>
+          <a class="item" href="">
+            Road
+            <span class="item-note">{{data.road}}</span>
+          </a>
+          <a class="item" href="">
+            Truck
+            <span class="item-note">{{data.trk_mrk}} {{data.trk_nbr}}</span>
+          </a>
+          <a class="item" href="">
+            Truck Company
+            <span class="item-note">{{data.trk_cmp}}</span>
+          </a>
+          <a class="item" href="">
+            Driver
+            <span class="item-note">{{data.drv_nam}}</span>
+          </a>
+          <a class="item" href="">
+            Driver ID
+            <span class="item-note">{{data.drv_ide}}</span>
+          </a>
+          <a class="item" href="">
+            Departure Date
+            <span class="item-note">{{data.dat_trd_from}}</span>
+          </a>
+          <a class="item" href="">
+            Arrival Date
+            <span class="item-note">{{data.dat_trd_to}}</span>
+          </a>
+        </div>
+      </div>
+    </ion-content>
+</ion-view>

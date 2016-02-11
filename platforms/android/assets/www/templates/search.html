@@ -1,0 +1,35 @@
+<ion-view view-title="{{currentLang.search}}" align-title="center">
+    <ion-nav-buttons side="right">
+        <button class="button ion-log-out" ng-click="logout()"> {{currentLang.logout}}</button>
+    </ion-nav-buttons>
+
+    <ion-content class="padding">
+        <div class="row">
+            <div class="col text-center">
+                <br/>
+                <br/>
+                <div style="text-align: center">
+                    <img src="img/gdce_logo_large.png" style="width: 100px;">
+                    <h3>{{currentLang.title}}</h3>
+                </div>
+                <br/>
+                <button class="button button-block button-positive" ng-click="scanQRCode()">{{currentLang.scan_qr}}</button>
+                <br/>
+                <b>{{currentLang.or}}</b>
+                <br/>
+                <br/>
+                <div class="list">
+				  	<div class="item item-input-inset">
+				    	<label class="item-input-wrapper">
+				    		<i class="icon ion-ios-search placeholder-icon"></i>
+				      		<input type="text" placeholder="{{currentLang.search}}" id="txtSearch">
+				    	</label>
+				    	<button class="button button-clear button-positive" ng-click="search()">
+				      		<b>{{currentLang.search}}</b>
+				    	</button>
+				  	</div>
+				</div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

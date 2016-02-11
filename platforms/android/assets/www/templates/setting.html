@@ -1,0 +1,31 @@
+<ion-view view-title="Settings" align-title="center">
+
+  	<ion-content>
+    	<div class="list">
+		  	<label class="item item-input item-select">
+		    	<div class="input-label">
+		      		Language
+		    	</div>
+		    	<select id="lang">
+		      		<option value="en" selected>English</option>
+		      		<option value="kh">ភាសាខ្មែរ</option>
+		    	</select>
+		  	</label>
+		  	<label class="item item-input">
+		    	<div class="input-label">
+		      		Registration
+		    	</div>
+		    	<input type="text" placeholder="Registration Code Here">
+		  	</label>
+		</div>
+		<div style="padding: 20px;">
+			Note: Language will be translated the tarrif line on the next search.
+		</div>
+		<br/>
+		<center>
+			<button class="button button-positive" ng-click="doChange()">
+	  			&nbsp; Save &nbsp;
+			</button>
+		</center>
+  	</ion-content>
+</ion-view>
