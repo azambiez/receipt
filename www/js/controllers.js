@@ -13,6 +13,7 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.changeLanguage = function(){
         if($scope.currentLang == $scope.lang.kh){
             $scope.currentLang = $scope.lang.en;
+            
         }else{
             $scope.currentLang = $scope.lang.kh;
         }
@@ -129,10 +130,8 @@ angular.module('starter.controllers', ['ngCordova'])
             },
             url: 'https://tools.customs.gov.kh/api/vehicle/scan/'+$scope.loginData.token
         }).then(function successCallback(response) {
-            console.log(response.data);
             if(response.data){
                 $scope.data = response.data;
-
                 if(typeof(cpy) == 'undefined'){
                     $scope.data.prn_nbr = "Unknown";
                 }else if(cpy == 0){
