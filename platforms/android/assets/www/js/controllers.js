@@ -4,48 +4,11 @@ angular.module('starter.controllers', ['ngCordova'])
 
     $scope.loginData = {};
 
-    $scope.lang = {
-        "kh": {
-            "menu" : "មីនុយ",
-            "search" : "ស្វែងរក",
-            "help" : "ជំនួយ",
-            "about" : "អំពីកម្មវិធី",
-            "login" : "ចូលប្រើប្រាស់",
-            "logout" : "ចាកចេញ",
-            "title" : "ប្រព័ន្ធពិនិត្យឯកសារគយ",
-            "scan_qr" : "ស្វែងរកតាម QR Code",
-            "or" : "ឬ",
-            "lang" : "English",
-            "username" : "ឈ្មោះអ្នកប្រើប្រាស់",
-            "password" : "ពាក្យសម្ងាត់",
-            "gdce" : "អគ្គនាយកដ្ឋានគយនិងរដ្ឋាករកម្ពុជា",
-            "version" : "ជំនាន់ទី",
-            "copyright" : "រក្សាសុទ្ធគ្រប់យ៉ាង",
-            "author" : "ក្រុមការងារគម្រោងជាតិអាស៊ីគូដា",
-            // "gdce" : "",
-            // "gdce" : "",
-        },
-        "en": {
-            "menu" : "Menu",
-            "search" : "Search",
-            "help" : "Help",
-            "about" : "About",
-            "login" : "Login",
-            "logout" : "Logout",
-            "title" : "Customs Document Check",
-            "scan_qr" : "Scan QR Code",
-            "or" : "Or",
-            "lang" : "ភាសាខ្មែរ",
-            "username" : "Username",
-            "password" : "Password",
-            "gdce" : "General Department of Customs and Excise",
-            "version" : "Version",
-            "copyright" : "Copyright",
-            "author" : "The Asycuda Team",
-        }
-    };
+    $http.get("lang.json").success(function(response){
+        $scope.lang = response;
+        $scope.currentLang = $scope.lang.kh;
+    });
 
-    $scope.currentLang = $scope.lang.kh;
 
     $scope.changeLanguage = function(){
         if($scope.currentLang == $scope.lang.kh){
@@ -79,8 +42,8 @@ angular.module('starter.controllers', ['ngCordova'])
         }).then(function successCallback(response) {
             if(response.data.status != "success"){
                 var alertPopup = $ionicPopup.alert({
-                    title: 'Customs Receipt',
-                    template: 'Invalid username and password'
+                    title: $scope.currentLang.title,
+                    template: $scope.currentLang.login_err
                 });
             }else{
                 $scope.loginData.token = response.data._token;
@@ -90,18 +53,14 @@ angular.module('starter.controllers', ['ngCordova'])
             }
         }, function errorCallback(response) {
             var alertPopup = $ionicPopup.alert({
-                title: 'Customs Receipt',
-                template: 'Please check Internet connection'
+                title: $scope.currentLang.title,
+                template: $scope.currentLang.connection_error
             });
         });
     };
 })
 
 .controller('SearchCtrl', function($scope, $state, $ionicPopup, $cordovaBarcodeScanner, $ionicModal) {
-
-    // if(typeof $scope.loginData.token === 'undefined'){
-    //     $scope.login();
-    // }
     $scope.data = [];
     $scope.scanQRCode = function () {
         $cordovaBarcodeScanner.scan().then(function(imageData) {
@@ -116,8 +75,8 @@ angular.module('starter.controllers', ['ngCordova'])
         var text = document.getElementById('txtSearch').value;
         if(text.trim() == ""){
             var alertPopup = $ionicPopup.alert({
-                title: 'Customs Receipt',
-                template: 'Please input text to search'
+                title: $scope.currentLang.title,
+                template: $scope.currentLang.text_required,
             });
         }else{
             $scope.send(text);
@@ -125,14 +84,17 @@ angular.module('starter.controllers', ['ngCordova'])
     }
 
     $scope.send = function(text){
+        text = text.toUpperCase();
         var doc = text.trim().substr(0,2);
         var cod = text.trim().substr(2,text.length);
         if(doc == "VD"){
             $state.go('app.vehicle',{vid:text}, {reload: true});
+        }else if(doc == "TD"){
+            $state.go('app.transport',{vid:text}, {reload: true});
         }else{
             var alertPopup = $ionicPopup.alert({
-                title: 'Customs Receipt',
-                template: 'Please input text to search'
+                title: $scope.currentLang.title,
+                template: $scope.currentLang.invalid_code,
             });
         }
     }
@@ -167,21 +129,23 @@ angular.module('starter.controllers', ['ngCordova'])
             },
             url: 'https://tools.customs.gov.kh/api/vehicle/scan/'+$scope.loginData.token
         }).then(function successCallback(response) {
+            console.log(response.data);
             if(response.data){
-                $scope.data = response.data[0];
+                $scope.data = response.data;
+
                 if(typeof(cpy) == 'undefined'){
                     $scope.data.prn_nbr = "Unknown";
                 }else if(cpy == 0){
                     $scope.data.prn_nbr = "Original Copy";
                 }else{
-                    $scope.data.prn_nbr = "Duplicate Copy "+cpy;
+                    $scope.data.prn_nbr = "Duplicate Copy " + cpy;
                 }
                 document.getElementById('spinner').style.display = "none";
                 document.getElementById('info').style.display = "block";
             }else{
                 var alertPopup = $ionicPopup.alert({
-                    title: 'Customs Receipt',
-                    template: 'Search not found'
+                    title: $scope.currentLang.title,
+                    template: $scope.currentLang.not_found
                 });
                 $state.go('app.search',{},{reload:true});
             }
@@ -190,8 +154,45 @@ angular.module('starter.controllers', ['ngCordova'])
             document.getElementById('spinner').style.display = "none";
             document.getElementById('info').style.display = "block";
             var alertPopup = $ionicPopup.alert({
-                title: 'Customs Receipt',
-                template: 'Please check Internet connection'
+                title: $scope.currentLang.title,
+                template: $scope.currentLang.connection_error
+            });
+            $state.go('app.search',{},{reload:true});
+        });
+    }
+})
+
+.controller('TransportCtrl', function($scope, $state, $ionicPopup, $stateParams, $http) {
+    $scope.data = [];
+    if(typeof $scope.loginData.token === 'undefined'){
+        $state.go('app.search',{},{reload:true});
+    }else{
+        var BAR_COD = $stateParams.vid.substring(2,$stateParams.vid.length);
+        $http({
+            method: 'POST',
+            data:{
+                BAR_COD: BAR_COD
+            },
+            url: 'https://tools.customs.gov.kh/api/transport/scan/'+$scope.loginData.token
+        }).then(function successCallback(response) {
+            if(response.data.TRD_GENERAL_SEGMENT){
+                $scope.data = response.data.TRD_GENERAL_SEGMENT;
+                document.getElementById('spinner').style.display = "none";
+                document.getElementById('info').style.display = "block";
+            }else{
+                var alertPopup = $ionicPopup.alert({
+                    title: $scope.currentLang.title,
+                    template: $scope.currentLang.not_found
+                });
+                $state.go('app.search',{},{reload:true});
+            }
+        }, function errorCallback(response) {
+            console.log('response');
+            document.getElementById('spinner').style.display = "none";
+            document.getElementById('info').style.display = "block";
+            var alertPopup = $ionicPopup.alert({
+                title: $scope.currentLang.title,
+                template: $scope.currentLang.connection_error,
             });
             $state.go('app.search',{},{reload:true});
         });

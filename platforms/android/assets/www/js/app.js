@@ -32,13 +32,13 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
-  .state('app.result', {
+  .state('app.transport', {
     cache: false,
-    url: '/result/:vid',
+    url: '/transport/:vid',
     views: {
       'menuContent': {
-        templateUrl: 'templates/result.html',
-        controller: 'ResultCtrl'
+        templateUrl: 'templates/transport.html',
+        controller: 'TransportCtrl'
       }
     }
   })
@@ -54,7 +54,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
-  .state('app.setting', {
+  /*.state('app.setting', {
       url: '/setting',
       views: {
         'menuContent': {
@@ -62,7 +62,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
           controller: 'SettingCtrl'
         }
       }
-    })
+    })*/
 
   .state('app.about', {
       url: '/about',
