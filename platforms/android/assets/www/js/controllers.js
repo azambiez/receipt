@@ -13,6 +13,7 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.changeLanguage = function(){
         if($scope.currentLang == $scope.lang.kh){
             $scope.currentLang = $scope.lang.en;
+            
         }else{
             $scope.currentLang = $scope.lang.kh;
         }
@@ -86,11 +87,13 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.send = function(text){
         text = text.toUpperCase();
         var doc = text.trim().substr(0,2);
-        var cod = text.trim().substr(2,text.length);
+        // var cod = text.trim().substr(2,text.length);
         if(doc == "VD"){
             $state.go('app.vehicle',{vid:text}, {reload: true});
         }else if(doc == "TD"){
             $state.go('app.transport',{vid:text}, {reload: true});
+        }else if(doc == "CR"){
+            $state.go('app.payment',{vid:text}, {reload: true});
         }else{
             var alertPopup = $ionicPopup.alert({
                 title: $scope.currentLang.title,
@@ -129,10 +132,8 @@ angular.module('starter.controllers', ['ngCordova'])
             },
             url: 'https://tools.customs.gov.kh/api/vehicle/scan/'+$scope.loginData.token
         }).then(function successCallback(response) {
-            console.log(response.data);
             if(response.data){
                 $scope.data = response.data;
-
                 if(typeof(cpy) == 'undefined'){
                     $scope.data.prn_nbr = "Unknown";
                 }else if(cpy == 0){
@@ -196,5 +197,45 @@ angular.module('starter.controllers', ['ngCordova'])
             });
             $state.go('app.search',{},{reload:true});
         });
+    }
+})
+
+.controller('PaymentCtrl', function($scope, $state, $ionicPopup, $stateParams, $http) {
+    $scope.data = [];
+    if(typeof $scope.loginData.token === 'undefined'){
+        $state.go('app.search',{},{reload:true});
+    }else{
+        var BAR_COD = $stateParams.vid.substring(2,$stateParams.vid.length);
+        /*$http({
+            method: 'POST',
+            data:{
+                BAR_COD: BAR_COD
+            },
+            url: 'https://tools.customs.gov.kh/api/transport/scan/'+$scope.loginData.token
+        }).then(function successCallback(response) {
+            if(response.data.TRD_GENERAL_SEGMENT){
+                $scope.data = response.data.TRD_GENERAL_SEGMENT;
+                document.getElementById('spinner').style.display = "none";
+                document.getElementById('info').style.display = "block";
+            }else{
+                var alertPopup = $ionicPopup.alert({
+                    title: $scope.currentLang.title,
+                    template: $scope.currentLang.not_found
+                });
+                $state.go('app.search',{},{reload:true});
+            }
+        }, function errorCallback(response) {
+            console.log('response');
+            document.getElementById('spinner').style.display = "none";
+            document.getElementById('info').style.display = "block";
+            var alertPopup = $ionicPopup.alert({
+                title: $scope.currentLang.title,
+                template: $scope.currentLang.connection_error,
+            });
+            $state.go('app.search',{},{reload:true});
+        });*/
+
+        document.getElementById('spinner').style.display = "none";
+        document.getElementById('info').style.display = "block";
     }
 });

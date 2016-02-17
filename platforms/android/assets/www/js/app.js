@@ -54,6 +54,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
+  .state('app.payment', {
+    cache: false,
+    url: '/payment/:vid',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/payment.html',
+        controller: 'PaymentCtrl'
+      }
+    }
+  })
+
   /*.state('app.setting', {
       url: '/setting',
       views: {
