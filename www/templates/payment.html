@@ -1,4 +1,4 @@
-<ion-view view-title="Result" align-title="center">
+<ion-view view-title="{{currentLang.result}}" align-title="center">
     <ion-content class="padding">
         <div style="text-align: center" id="spinner">
             <br />
@@ -14,70 +14,70 @@
         </div>
 
         <div id="info" style="display: none">
-            <h3 style="text-align:center;">Customs Receipt</h3>
+            <h3 style="text-align:center;">{{currentLang.customs_receipt}}</h3>
             <div class="list">
                 <div class="item item-divider">
-                    Receipt Info
+                    {{currentLang.receipt_info}}
                 </div>
                 <div class="item">
-                    Office Code
+                    {{currentLang.office_code}}
                     <span class="item-note">{{data.ide_cod}}</span>
                 </div>
                 <div class="item">
-                    Office Name
+                    {{currentLang.office_name}}
                     <span class="item-note">{{data.ide_nam}}</span>
                 </div>
                 <div class="item">
-                    Receipt No.
+                    {{currentLang.receipt_no}}
                     <span class="item-note">{{data.ide_yea}} {{data.ide_ser}} {{data.ide_nbr}} - {{data.key_itm_rnk}}</span>
                 </div>
                 <div class="item">
-                    Receipt Date
+                    {{currentLang.receipt_date}}
                 <span class="item-note">{{data.ide_dat.split(" ")[0]}}</span>
                 </div>
                 <div class="item">
-                    Declarant No.
+                    {{currentLang.declarant_code}}
                     <span class="item-note">{{data.prn_nbr}}</span>
                 </div>
                 <div class="item">
-                    Declarant
+                    {{currentLang.declarant_name}}
                     <span class="item-note">{{data.officer}}</span>
                 </div>
                 <div class="item">
-                    Importer No.
+                    {{currentLang.company_code}}
                     <span class="item-note">{{data.prn_nbr}}</span>
                 </div>
                 <div class="item">
-                    Importer
+                    {{currentLang.company_name}}
                     <span class="item-note">{{data.officer}}</span>
                 </div>
                 <div class="item">
-                    Cashier
+                    {{currentLang.cashier}}
                     <span class="item-note">{{data.officer}}</span>
                 </div>
             </div>
 
             <div class="list">
                 <div class="item item-divider">
-                    Declaration Info
+                    {{currentLang.sad_info}}
                 </div>
                 <div class="item">
-                    SAD No
+                    {{currentLang.sad_no}}
                     <span class="item-note">{{data.itm_dsc}}</span>
                 </div>
                 <div class="item">
-                    Model
+                    {{currentLang.model}}
                     <span class="item-note">{{data.chasis_nber}}</span>
                 </div>
                 <div class="item">
-                    Amount Paid
+                    {{currentLang.amount_paid}}
                     <span class="item-note">{{data.engine_nber}}</span>
                 </div>
             </div>
 
             <div class="list">
                 <div class="item item-divider">
-                    Other Fees
+                    {{currentLang.other_fee}}
                 </div>
                 <div class="item "ng-repeat="item in data.items track by $index">
                     {{$index+1}}. {{item.itm_dsc}}
